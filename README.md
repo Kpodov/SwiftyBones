@@ -15,9 +15,15 @@ SwiftyBones currently supports interacting with the digital GPIO and analog (AIN
 To use this library you will need the Debian 8.3 image (kernel 4.1+) and Swift 2.2.  To install Swift you can following the instructions on the <a href= http://dev.iachieved.it/iachievedit/debian-packages-for-swift-on-arm/>iachieved.it</a> site.
 
 The Package Manager is not available on ARM therefore you will need to download the zip archive for SwiftyBones with the following command:  
-```swift
+```
 wget https://github.com/hoffmanjon/SwiftyBones/archive/master.zip
 ```
- 
+
+Once the archive is downloaded, you can unzip it using the following command:
+
+```
+unzip master.zip
+```
+
  
  
