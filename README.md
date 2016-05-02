@@ -6,7 +6,7 @@ A Swift library for interacting with the GPIO and Analog pins on the BeagleBone 
 ## Summary
 
 The idea for SwiftyBones came from the very good <a href="https://github.com/uraimo/SwiftyGPIO">SwiftyGPIO library.</a>  While the SwiftyGPIO library is a very good library for accessing the GPIO pins on the BeagleBone Black (and other boards like the Raspberry PI and C.H.I.P) it currently does not have the ability to access the analog or PWM pins which I need for a number of my projects.  My first thought was to add this functionality to the SwiftyGPIO library however I wanted to focus on the BeagleBone Black which I use for my projects.
- I also wanted to take a more protocol-oriented approach with value types as I described in my book <a href= http://amzn.to/21osHFc>Protocol-Oriented Programming with Swift</a> therefore I decided to write the SwiftyBones library.
+ I also wanted to take a more protocol-oriented approach with value types as described in my book <a href= http://amzn.to/21osHFc>Protocol-Oriented Programming with Swift</a> therefore I decided to write the SwiftyBones library.
 
 SwiftyBones currently supports interacting with the digital GPIO and analog (AIN0 - AIN6) pins.  I have begun work to add support for the PWM pins and will hopefully have this support in soon.
 
@@ -38,10 +38,10 @@ Lets take a look at what is each of these directories starting with the Source d
 The Source directory contains the Swift source files that make up the SwiftyBones library.  Currently there are three files which are:
 -  SwiftyBonesCommon.swift:  This file contains common code which is required for interacting with both analog and digital GPIOs.
 -  SwiftyBonesDigitalGPIO.swift:  This file contains the necessary types for interacting with the digital GPIO pins on the Beaglebone Black. 
--  SwiftyBonesAnalog.swift:  This file contains the necessary types for interacting with the Analog In pins on the Beaglebone Black.
+-  SwiftyBonesAnalog.swift:  This file contains the necessary types for interacting with the Analog IN pins on the Beaglebone Black.
 
 
-To use SwiftyBones in your project you will need to include the SwiftyBonesCommon.swift file in the project.  You will also need to include the file that corresponds to the pins you need.  If your project uses digital GPIO then you will also need to include the SwiftyBonesDigitalGPIO.swift file.  If your project uses analog in (AIN) then you will need to include the SwiftyBonesAnalog.swift file.  If your project uses both digital GPIO and analog in, you will want to include both of the files.
+To use SwiftyBones in your project you will need to include the SwiftyBonesCommon.swift file in the project.  You will also need to include the file that corresponds to the pins you need.  If your project uses digital GPIO then you will need to also include the SwiftyBonesDigitalGPIO.swift file.  If your project uses analog in (AIN) then you will need to also include the SwiftyBonesAnalog.swift file.  If your project uses both digital GPIO and analog in, you will want to include both of the files.
 
 ##swiftybuild Directory
 
@@ -50,14 +50,14 @@ The swiftybuild directory contains a single script file named swiftybuild.sh.  S
 ```
 swiftc -o myexec main.swift tempSensor.swift SwiftyBones/SwiftyBonesCommon.swift SwiftyBones/SwiftyBonesDigitalGPIO.swift
 ```
-therefore I wrote a script that would search the current directory and all subdirectories for all files that have the .swift extension and then build a swift compiler command that would contain all of the files it found.  The script does take a single optional command line argument that would be the name of the executable file if everything successfully compiled.  You would use this script like this:
+therefore I wrote a script that would search the current directory and all subdirectories for all files that have the .swift extension and then build a swift compiler command that would contain all of the files it found.  The script takes a single optional command line argument that would be the name of the executable file if everything successfully compiled.  You would use this script like this:
 ```
 ./swiftybuild.sh  
 or
 ./swiftybuild.sh myexec
 ```
 
-The output from the first command would be an executable file named myexec if everything compiled successfully.  The second command would generate an executable named myexec if everything compiled successfully.
+The output from the first command would be an executable file named _main_ if everything compiled successfully.  The second command would generate an executable named _myexec_ if everything compiled successfully.
 
 ##Examples Directory
 
@@ -92,7 +92,7 @@ if let led = SBDigitalGPIO(id: "gpio30", direction: .OUT){
         print("Error init pin")
 }
 ```
-In this example we start off by creating an instance of the _SBDigitalGPIO_ type (value type) using the **SBDigitalGPIO(id:direction:)** initiator.  We could also create the instance of the _SBDigitalGPIO_ type by using the **SBDigitalGPIO(header:pin:direction:)** initiator like this:
+In this example we start off by creating an instance of the _SBDigitalGPIO_ type (value type) using the **SBDigitalGPIO(id:direction:)** initiator.  The ID is a String type that starts with **gpio** (lowercase) followed by the GPIO number.  You can see the digital GPIOs listed on the <a href="http://beagleboard.org/Support/bone101">beagleboard.org</a> site.  We could also create the instance of the _SBDigitalGPIO_ type by using the **SBDigitalGPIO(header:pin:direction:)** initiator like this:
 ```
 if let led = SBDigitalGPIO(header: .P9, pin: 11, direction: .OUT) {
 	//CODE
@@ -101,7 +101,30 @@ if let led = SBDigitalGPIO(header: .P9, pin: 11, direction: .OUT) {
 We use the **getValue()** method from the _SBDigitalGPIO_ type to read the value current value of GPIO30.  The method returns either **DigitalGPIOValue.HIGH** or **DigitalGPIOValue.LOW** signifying that the pin is either high or low.  
 We then use the ternary operator to reverse the value (if the value is high we set newValue to low and if the value is low we set the newValue to high).  We use the **setValue()** method of the _SBDigitalGPIO_ type to apply the new value.  Finally we use the usleep() method to pause before looping back.  This causes the LED to blink.
 
+###MotionSensor
+Now lets look at the motion sensor example. The following is the Fritzing diagram that shows how to connect the HC-SR502 sensor to your Beaglebone black.
+![MotionDiagram](https://github.com/hoffmanjon/SwiftyBones/raw/master/examples/MotionSensor/diagrams/led_only.png)
 
+In this example we connect the center pin to GPIO60 (P9 pin 12).  The following code shows how we read the motion sensor using the _SBDigitalGPIO_ type.
+
+```
+import Glibc
+
+var motion = SBDigitalGPIO(id: "gpio60", direction: .IN)
+while(true) {
+    if let value = motion?.getValue() {
+        let status = (value == .HIGH) ? "Motion Detected" : "No Motion"
+        print(status)
+    }
+    usleep(100000)
+
+}
+```
+This code looks very similar to the the BlinkingLED example that we just showed.  The both use the _SBDigitalGPIO_ type however in this example we only read the digital GPIO pin and never write anything back to it.
+
+###Temperature
+Finally, lets see how we would use the analog pins to determine the current temperature.  The following diagram shows how to connect a tmp36 temperature sensor to your Beaglebone Black. 
+![TempDiagram](https://github.com/hoffmanjon/SwiftyBones/raw/master/examples/Temperature/diagrams/led_only.png)
 
 Work-in-progress will have the readme finished shortly
  
