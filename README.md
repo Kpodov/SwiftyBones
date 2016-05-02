@@ -1,6 +1,6 @@
 ![SwiftyBones](https://github.com/hoffmanjon/SwiftyBones/raw/master/images/logo.png)
 
-A Swift library for accessing the GPIO and Analog pins on the BeagleBone Black.
+A Swift library for interacting with the GPIO and Analog pins on the BeagleBone Black.
 
 
 ## Summary
