@@ -72,7 +72,7 @@ Lets look at each of these projects and see how they function.
 ###BlinkingLED
 
 Lets begin by looking at the Fritzing diagram for this project. 
-![LEDDiagram](https://github.com/hoffmanjon/SwiftyBones/raw/master/examples/BlinkingLed/diagrams/led_only.png)
+![LEDDiagram](https://github.com/hoffmanjon/SwiftyBones/raw/master/examples/BlinkingLed/diagrams/led_only.png | width=300)
 
 As we can see from the diagram, we have a single LED and a 100 ohm resistor connected to our Beaglebone Black.  Once we have everything connected, we can compile the example code and run it.  The following code listing shows the code in our main.swift file for this example:
 
