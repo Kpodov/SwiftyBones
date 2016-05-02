@@ -102,9 +102,8 @@ We use the **getValue()** method from the _SBDigitalGPIO_ type to read the value
 We then use the ternary operator to reverse the value (if the value is high we set newValue to low and if the value is low we set the newValue to high).  We use the **setValue()** method of the _SBDigitalGPIO_ type to apply the new value.  Finally we use the usleep() method to pause before looping back.  This causes the LED to blink.
 
 ###MotionSensor
-Now lets look at the motion sensor example. The following is the Fritzing diagram that shows how to connect the HC-SR502 sensor to your Beaglebone black.
-![MotionDiagram](https://github.com/hoffmanjon/SwiftyBones/blob/master/examples/MotionSensor/diagrams/motion_sensor_bb.png)
-
+Now lets look at the motion sensor example. The following is the Fritzing diagram that shows how to connect the HC-SR502 sensor to your Beaglebone black.</p>
+<img src="https://github.com/hoffmanjon/SwiftyBones/blob/master/examples/MotionSensor/diagrams/motion_sensor_bb.png" width="600"/>
 In this example we connect the center pin to GPIO60 (P9 pin 12).  The following code shows how we read the motion sensor using the _SBDigitalGPIO_ type.
 
 ```
