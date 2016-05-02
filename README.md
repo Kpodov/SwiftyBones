@@ -103,7 +103,7 @@ We then use the ternary operator to reverse the value (if the value is high we s
 
 ###MotionSensor
 Now lets look at the motion sensor example. The following is the Fritzing diagram that shows how to connect the HC-SR502 sensor to your Beaglebone black.
-![MotionDiagram](https://github.com/hoffmanjon/SwiftyBones/raw/master/examples/MotionSensor/diagrams/led_only.png)
+![MotionDiagram](https://github.com/hoffmanjon/SwiftyBones/blob/master/examples/MotionSensor/diagrams/motion_sensor_bb.png)
 
 In this example we connect the center pin to GPIO60 (P9 pin 12).  The following code shows how we read the motion sensor using the _SBDigitalGPIO_ type.
 
@@ -124,7 +124,7 @@ This code looks very similar to the the BlinkingLED example that we just showed.
 
 ###Temperature
 Finally, lets see how we would use the analog pins to determine the current temperature.  The following diagram shows how to connect a tmp36 temperature sensor to your Beaglebone Black. 
-![TempDiagram](https://github.com/hoffmanjon/SwiftyBones/raw/master/examples/Temperature/diagrams/led_only.png)
+![TempDiagram](https://github.com/hoffmanjon/SwiftyBones/blob/master/examples/Temperature/diagrams/temp_sensor_bb.png)
 
 Work-in-progress will have the readme finished shortly
  
