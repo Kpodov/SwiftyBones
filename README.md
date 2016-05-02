@@ -74,6 +74,34 @@ Lets look at each of these projects and see how they function.
 Lets begin by looking at the Fritzing diagram for this project. 
 ![LEDDiagram](https://github.com/hoffmanjon/SwiftyBones/raw/master/examples/BlinkingLed/diagrams/led_only.png)
 
+As we can see from the diagram, we have a single LED and a 100 ohm resistor connected to our Beaglebone Black.  Once we have everything connected, we can compile the example code and run it.  The following code listing shows the code in our main.swift file for this example:
+
+```
+import Glibc
+
+if let led = SBDigitalGPIO(id: "gpio30", direction: .OUT){
+        while(true) {
+                if let oldValue = led.getValue() {
+                        print("Changing")
+                        var newValue = (oldValue == DigitalGPIOValue.HIGH) ? DigitalGPIOValue.LOW : DigitalGPIOValue.HIGH
+                        led.setValue(newValue)
+                        usleep(150000)
+                }
+        }
+} else {
+        print("Error init pin")
+}
+```
+In this example we start off by creating an instance of the _SBDigitalGPIO_ type (value type) using the **SBDigitalGPIO(id:direction:)** initiator.  We could also create the instance of the _SBDigitalGPIO_ type by using the **SBDigitalGPIO(header:pin:direction:)** initiator like this:
+```
+if let led = SBDigitalGPIO(header: .P9, pin: 11, direction: .OUT) {
+	//CODE
+}
+```
+We use the **getValue()** method from the _SBDigitalGPIO_ type to read the value current value of GPIO30.  The method returns either **DigitalGPIOValue.HIGH** or **DigitalGPIOValue.LOW** signifying that the pin is either high or low.  
+We then use the ternary operator to reverse the value (if the value is high we set newValue to low and if the value is low we set the newValue to high).  We use the **setValue()** method of the _SBDigitalGPIO_ type to apply the new value.  Finally we use the usleep() method to pause before looping back.  This causes the LED to blink.
+
+
 
 Work-in-progress will have the readme finished shortly
  
