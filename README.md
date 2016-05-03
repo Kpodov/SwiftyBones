@@ -157,5 +157,7 @@ SwiftyBones is definitly a work in progress at this time.  I am hopefully I can 
 
 Please feel free to leave me any suggestions that you may have and if you would like to contribute code to this project please feel free especially if you know how to get PWM working with the 4.1+ kernels.
 
+Please drop me a note, with a link, if you are using SwiftyBones in one of your projects.  I love hearing about cool projects and I can post a link to your project here.
+
  
  
