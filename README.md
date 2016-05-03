@@ -153,7 +153,8 @@ if let tmp36 = SBAnalog(header: .P9, pin: 40) {
 We then use the **getValue()** method from the _SBAnalog_ type to retrieve the current value of the pin.  The rest of the code is just calculating the temperature.
 
 ##Final Thoughts
-SwiftyBones is definitly a work in progress at this time.  I am hopefully I can figure out the PWM ports in the next couple of weeks because once my daughter gets out for summer break she wants to begin working on our robot and I will need the PWM ports for that. Once I finishgetting PWM working, I will begin to add other items to this library as well.
+SwiftyBones is definitly a work in progress at this time.  I am hopefully I can figure out the PWM ports in the next couple of weeks because once my daughter gets out for summer break she wants to begin working on our robot and I will need the PWM ports for that. Once I get PWM working, I will begin to add other items to this library as well.  I also need to go though and put comments in my code.
+
 Please feel free to leave me any suggestions that you may have and if you would like to contribute code to this project please feel free especially if you know how to get PWM working with the 4.1+ kernels.
 
  
