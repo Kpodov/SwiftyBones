@@ -122,9 +122,39 @@ while(true) {
 This code looks very similar to the the BlinkingLED example that we just showed.  The both use the _SBDigitalGPIO_ type however in this example we only read the digital GPIO pin and never write anything back to it.
 
 ###Temperature
-Finally, lets see how we would use the analog pins to determine the current temperature.  The following diagram shows how to connect a tmp36 temperature sensor to your Beaglebone Black. 
-![TempDiagram](https://github.com/hoffmanjon/SwiftyBones/blob/master/examples/Temperature/diagrams/temp_sensor_bb.png)
+Finally, lets see how we would use the analog pins to determine the current temperature.  The following diagram shows how to connect a tmp36 temperature sensor to your Beaglebone Black. </p>
+<img src="https://github.com/hoffmanjon/SwiftyBones/blob/master/examples/Temperature/diagrams/temp_sensor_bb.png" width="600"/>
+The center pin on the tmp36 sensor is connected to AIN1 (Header: P9, Pin 40).  The following code will use the _SBAnalog_ type to read the tmp36 sensor
+```
+import Glibc
 
-Work-in-progress will have the readme finished shortly
+if let tmp36 = SBAnalog(id: "AIN1") {
+    while(true) {
+        if let value = tmp36.getValue() {
+            let milliVolts = (value / 4096.0) * 1800.0
+            let celsius = (milliVolts - 500.0) / 10.0
+            let fahrenheit = (celsius * 9.0 / 5.0) + 32.0
+            
+            print("milliVolts:  \(milliVolts)")
+            print("celsius:  \(celsius)")
+            print("Fahrenheit:  \(fahrenheit)")
+            
+            usleep(150000)
+        }
+    }
+}
+```
+In this code we start off by creating an instance of the _SBAnalog_ type using the **SBAnalog(id:)** initiator.  We could also use the **SBAnalog(header:pin:)** initiator like this:
+```
+if let tmp36 = SBAnalog(header: .P9, pin: 40) {
+	//code
+}
+```
+We then use the **getValue()** method from the _SBAnalog_ type to retrieve the current value of the pin.  The rest of the code is just calculating the temperature.
+
+##Final Thoughts
+SwiftyBones is definitly a work in progress at this time.  I am hopefully I can figure out the PWM ports in the next couple of weeks because once my daughter gets out for summer break she wants to begin working on our robot and I will need the PWM ports for that. Once I finishgetting PWM working, I will begin to add other items to this library as well.
+Please feel free to leave me any suggestions that you may have and if you would like to contribute code to this project please feel free especially if you know how to get PWM working with the 4.1+ kernels.
+
  
  
