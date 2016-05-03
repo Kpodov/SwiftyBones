@@ -1,4 +1,8 @@
 #!/bin/sh
+#title				:swiftybuild.sh
+#author				:Jon Hoffman
+#description	:This script will search the currect directory and all subdirectories for files with the .swift extension.  It will then compile all of those files and build an application with
+#usage				:./swiftybuild.sh  or  ./swiftybuild.sh {output file name}
 
 FILELIST=""
 OUTPUTFILE=""
