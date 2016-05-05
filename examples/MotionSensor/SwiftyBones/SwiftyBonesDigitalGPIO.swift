@@ -4,6 +4,9 @@
     import Darwin
 #endif
 
+/**
+ The list of available GPIO.
+ */
 var DigitalGPIOPins:[String: BBExpansionPin] = [
     "gpio38": (header:.P8, pin:3),
     "gpio39": (header:.P8, pin:4),
@@ -72,60 +75,99 @@ var DigitalGPIOPins:[String: BBExpansionPin] = [
     "gpio7": (header:.P9, pin:42)
 ]
 
+/**
+ Direction that pin can be configured for
+ */
 enum DigitalGPIODirection: String {
     case IN="in"
     case OUT="out"
 }
 
+/**
+ The value of the digitial GPIO pins
+ */
 enum DigitalGPIOValue: String {
     case HIGH="1"
     case LOW="0"
 }
 
+/**
+ Type that represents a GPIO pin on the Beaglebone Black
+ */
 struct SBDigitalGPIO: GPIO {
     
+    /**
+     Variables and paths needed
+     */
     private static let GPIO_BASE_PATH = "/sys/class/gpio/"
     private static let GPIO_EXPORT_PATH = GPIO_BASE_PATH + "export"
     private static let GPIO_DIRECTION_FILE = "/direction"
     private static let GPIO_VALUE_FILE = "/value"
+    
     private var header: BBExpansionHeader
     private var pin: Int
     private var id: String
     private var direction: DigitalGPIODirection
     
+    /**
+     Failable initiator which will fail if an invalid ID is entered
+     - Parameter id:  The ID of the pin.  The ID starts with gpio and then contains the gpio number
+     - Parameter direction:  The direction to configure the pin for
+     */
     init?(id: String, direction: DigitalGPIODirection) {
         if let val = DigitalGPIOPins[id] {
             self.id = id
             self.header = val.header
             self.pin = val.pin
             self.direction = direction
-            initPin()
+            if !initPin() {
+                return nil
+            }
         } else {
             return nil
         }
     }
     
+    /**
+     Failable initiator which will fail if either the header or pin number is invalid
+     - Parameter header:  This is the header which will be either .P8 or .P9
+     - pin:  the pin number
+     - Parameter direction:  The direction to configure the pin for
+     */
     init?(header: BBExpansionHeader, pin: Int, direction: DigitalGPIODirection) {
         for (key, expansionPin) in DigitalGPIOPins where expansionPin.header == header && expansionPin.pin == pin {
-                self.header = header
-                self.pin = pin
-                self.id = key
-                self.direction = direction
-                initPin()
+            self.header = header
+            self.pin = pin
+            self.id = key
+            self.direction = direction
+            if !initPin() {
+                return nil
+            }
                 return
         }
         return nil
 
     }
     
-    
-    func initPin() {
+    /**
+     This method configures the pin for Digital I/O
+     - Returns:  true if the pin was successfully configured for digitial I/O
+     */
+    func initPin() -> Bool {
         let range = id.startIndex.advancedBy(4)..<id.endIndex.advancedBy(0)
         let gpioId = id[range]
-        writeStringToFile(gpioId, path: SBDigitalGPIO.GPIO_EXPORT_PATH)
-        writeStringToFile(direction.rawValue, path: getDirectionPath())
+        let gpioSuccess = writeStringToFile(gpioId, path: SBDigitalGPIO.GPIO_EXPORT_PATH)
+        let directionSuccess = writeStringToFile(direction.rawValue, path: getDirectionPath())
+        if !gpioSuccess || !directionSuccess {
+            return false
+        }
+        return true
     }
     
+    /**
+     This function checks to see if the pin is configured for Digital I/O
+     - Returns: true if the pin is already configured otherwise false
+     */
     func isPinActive() -> Bool {
         if let _ = getValue() {
             return true
@@ -134,7 +176,10 @@ struct SBDigitalGPIO: GPIO {
         }
     }
 
-    
+    /**
+     Gets the present value from the pin
+     - Returns:  returns the value for the pin eith .HIGH or .LOW
+     */
     func getValue() -> DigitalGPIOValue? {
         if let valueStr = readStringFromFile(getValuePath()) {
             return valueStr == DigitalGPIOValue.HIGH.rawValue ? DigitalGPIOValue.HIGH : DigitalGPIOValue.LOW
@@ -143,14 +188,26 @@ struct SBDigitalGPIO: GPIO {
         }
     }
     
+    /**
+     Sets the value for the pin
+     - Parameter value:  The value for the pin either .HIGH or .LOW
+    */
     func setValue(value: DigitalGPIOValue) {
         writeStringToFile(value.rawValue, path: getValuePath())
     }
     
+    /**
+     Determines the path to the file for this particular digital pin direction file
+     - Returns:  Path to file
+     */
     private func getDirectionPath() -> String {
         return SBDigitalGPIO.GPIO_BASE_PATH + id + SBDigitalGPIO.GPIO_DIRECTION_FILE
     }
     
+    /**
+     Determines the path to the file for this particular digital pin
+     - Returns:  Path to file
+     */
     private func getValuePath() -> String {
         return SBDigitalGPIO.GPIO_BASE_PATH + id + SBDigitalGPIO.GPIO_VALUE_FILE
     }
