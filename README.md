@@ -169,7 +169,7 @@ if let led = SBDigitalGPIO(header: .P9, pin: 11, direction: .OUT) {
 }
 ```
 Here is the list of valid GPIO pins define within SwiftyBones:
-
+```
     "gpio38": (header:.P8, pin:3),
     "gpio39": (header:.P8, pin:4),
     "gpio34": (header:.P8, pin:5),
@@ -235,7 +235,7 @@ Here is the list of valid GPIO pins define within SwiftyBones:
     "gpio110": (header:.P9, pin:31),
     "gpio20": (header:.P9, pin:41),
     "gpio7": (header:.P9, pin:42)
-    
+```    
 The direction parameter defines if we are going to read or write to the pin.  A **.IN** value means we are going to write a value to the GPIO and a **.OUT** value means we are going to read the value.  
 We can then use the **getValue()** method to read the value of the GPIO or the **setValue()** method to write the value.  When we read or write the value for the GPIO the value is returned or written using the values defined in the **DigitalGPIOValue** enum which is .HIGH or .LOW.
 
@@ -259,6 +259,7 @@ if let analogPin = SBAnalog(header: .P9, pin: 40) {
 }
 ```
 Here is the list of valid Analog IN pins define within SwiftyBones:
+```
     "AIN0": (header:.P9, pin:39),
     "AIN1": (header:.P9, pin:40),
     "AIN2": (header:.P9, pin:37),
@@ -266,6 +267,7 @@ Here is the list of valid Analog IN pins define within SwiftyBones:
     "AIN4": (header:.P9, pin:33),
     "AIN5": (header:.P9, pin:36),
     "AIN6": (header:.P9, pin:35)
+```
 We can then use the **getValue()** method to read the value of the Analog IN pin.
 
 ###PWM
@@ -287,6 +289,7 @@ if let pwm = SBPWM(id:PWM2B) {
 }
 ```
 Here is the list of valid PWM pins define within SwiftyBones:
+```
     "PWM2B": (header:.P8, pin:13),
     "PWM2A": (header:.P8, pin:19),
     "PWM1A": (header:.P9, pin:14),
@@ -294,6 +297,7 @@ Here is the list of valid PWM pins define within SwiftyBones:
     "PWM0B": (header:.P9, pin:21),
     "PWM0A": (header:.P9, pin:22),
     "PWM0": (header:.P9, pin:42)
+```
 We use the **setValue()** method to set the duty_cycle for the pin.  The period is defined internally at 10000 which is the max value for the duty_cycle.  We use the **setEnable()** method to enable or disable the pin.
 
 ##Swift Powered Robot
