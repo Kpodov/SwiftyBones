@@ -1,6 +1,6 @@
 ![SwiftyBones](https://github.com/hoffmanjon/SwiftyBones/raw/master/images/logo.png)
 
-A Swift library for interacting with the GPIO and Analog pins on the BeagleBone Black.
+A Swift library for interacting with the GPIO, PWM and Analog pins on the BeagleBone Black.
 
 
 ## Summary
@@ -169,6 +169,7 @@ if let led = SBDigitalGPIO(header: .P9, pin: 11, direction: .OUT) {
 }
 ```
 Here is the list of valid GPIO pins define within SwiftyBones:
+
     "gpio38": (header:.P8, pin:3),
     "gpio39": (header:.P8, pin:4),
     "gpio34": (header:.P8, pin:5),
