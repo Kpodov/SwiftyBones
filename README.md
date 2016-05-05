@@ -236,11 +236,11 @@ Here is the list of valid GPIO pins define within SwiftyBones:
     "gpio20": (header:.P9, pin:41),
     "gpio7": (header:.P9, pin:42)
 ```    
-The direction parameter defines if we are going to read or write to the pin.  A **.IN** value means we are going to write a value to the GPIO and a **.OUT** value means we are going to read the value.  
+The **direction** parameter defines if we are going to read or write to the pin.  A **.IN** value means we are going to write a value to the GPIO and a **.OUT** value means we are going to read the value.  
 We can then use the **getValue()** method to read the value of the GPIO or the **setValue()** method to write the value.  When we read or write the value for the GPIO the value is returned or written using the values defined in the **DigitalGPIOValue** enum which is .HIGH or .LOW.
 
 ###Analog IN
-Ditital GPIO is very nice for simple on/off type of sensors like a button of for turning a LED on or off but what if we have a sensor, like a temperature sensor, that returns a range.  That is where the analog pins com in.  The analog in will return a range from 0 to 1.8V (1.8 V is the max for the AIN pins) however the range from the pin itself will be from 0 to 4096.  
+Ditital GPIO is very nice for simple on/off type of sensors like reading the status of a button or for turning a LED on or off but what if we have a sensor, like a temperature sensor, that returns a range.  That is where the analog pins come in.  The Analog IN pins will return a range from 0 to 1.8V (1.8 V is the max for the AIN pins) however the range from the pin itself will be from 0 to 4096.  See the Temperature example that comes with SwiftyBones as an example.  
 To access the analog pins on the Beaglebone Black we use the **SBAnalog** type from the _SwiftyBonesAnalog.swift_ file.  Below is an example of how to use the **SBAnalog** type.
 
 ```
@@ -272,7 +272,7 @@ We can then use the **getValue()** method to read the value of the Analog IN pin
 
 ###PWM
 You can read about PWM <a href="https://en.wikipedia.org/wiki/Pulse-width_modulation">here</a>.  It will give you a much better explanation then I could.
-To access the PWM pins on the Beaglebone Black we use the **SBPWM** type from the _SwiftyBonesPWM.swift** file.  Below is an example of how to use the **SBPWM** type:
+To access the PWM pins on the Beaglebone Black we use the **SBPWM** type from the _SwiftyBonesPWM.swift_ file.  Below is an example of how to use the **SBPWM** type:
 ```
 import Glibc
 
@@ -284,7 +284,7 @@ if let pwm = SBPWM(header: .P8, pin: 13) {
 ```
 In the previous example we started off by creating an instance of the **SBPWM** type that uses the 40th pin on the P9 header.  You can see the PWM pins, with the names, listed on the <a href=http://beagleboard.org/Support/bone101>beagleboard.org</a> site.  We could also create the instance of the **SBPWM** type by using the **SBPWM(id:)** initialzer like this:
 ```
-if let pwm = SBPWM(id:PWM2B) {
+if let pwm = SBPWM(id:"PWM2B") {
 	//CODE
 }
 ```
@@ -301,7 +301,7 @@ Here is the list of valid PWM pins define within SwiftyBones:
 We use the **setValue()** method to set the duty_cycle for the pin.  The period is defined internally at 10000 which is the max value for the duty_cycle.  We use the **setEnable()** method to enable or disable the pin.
 
 ##Swift Powered Robot
-You can see the post that describes the first robot written with Swift and SwiftyBones here:  
+You can see the post that describes the first robot written with Swift and SwiftyBones here:  <a href="http://myroboticadventure.blogspot.com/2016/05/the-first-robot-programed-in-swift-with.html">http://myroboticadventure.blogspot.com/2016/05/the-first-robot-programed-in-swift-with.html</a>
 
 ##Final Thoughts
 SwiftyBones is definitly a work in progress at this time.  I am hopefully I can figure out the PWM ports in the next couple of weeks because once my daughter gets out for summer break she wants to begin working on our robot and I will need the PWM ports for that. Once I get PWM working, I will begin to add other items to this library as well.  I also need to go though and put comments in my code.
