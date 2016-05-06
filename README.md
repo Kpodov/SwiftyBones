@@ -1,6 +1,6 @@
 ![SwiftyBones](https://github.com/hoffmanjon/SwiftyBones/raw/master/images/logo.png)
 
-A Swift library for interacting with the GPIO, PWM and Analog pins on the BeagleBone Black.
+A Swift library for interacting with the GPIO, PWM and Analog pins on the BeagleBone Black.  See the first robot programmed entirely in Swift with SwiftBones here: <a href="http://myroboticadventure.blogspot.com/2016/05/the-first-robot-programed-in-swift-with.html">http://myroboticadventure.blogspot.com/2016/05/the-first-robot-programed-in-swift-with.html</a>
 
 
 ## Summary
