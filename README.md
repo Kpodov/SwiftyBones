@@ -26,16 +26,16 @@ unzip master.zip
 ```
 
 Once the archive is unzipped you should see the following four directorie:
--  Source:  The SwiftyBones source files
+-  Sources:  The SwiftyBones source files
 -  swiftybuild:  The swiftybuild script to help you compile your Swift projects
 -  Examples:  Example projects to help you get started with SwiftyBones
 -  Images:  Images needed for this README like the SwiftyBones logo
 
-Lets take a look at what is each of these directories starting with the Source directory.
+Lets take a look at what is each of these directories starting with the Sources directory.
 
-###Source Directory
+###Sources Directory
 
-The Source directory contains the Swift source files that make up the SwiftyBones library.  Currently there are three files which are:
+The Sources directory contains the Swift source files that make up the SwiftyBones library.  Currently there are three files which are:
 -  SwiftyBonesCommon.swift:  This file contains common code which is required for interacting with both analog and digital GPIOs.
 -  SwiftyBonesDigitalGPIO.swift:  This file contains the necessary types for interacting with the digital GPIO pins on the Beaglebone Black. 
 -  SwiftyBonesAnalog.swift:  This file contains the necessary types for interacting with the Analog IN pins on the Beaglebone Black.
