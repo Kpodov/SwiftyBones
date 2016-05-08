@@ -1,3 +1,10 @@
+//
+//  SwiftyBonesDigitalGPIO.swift
+//
+//  Created by Jon Hoffman on 5/1/16.
+//
+
+
 #if arch(arm) && os(Linux)
     import Glibc
 #else
@@ -192,8 +199,8 @@ struct SBDigitalGPIO: GPIO {
      Sets the value for the pin
      - Parameter value:  The value for the pin either .HIGH or .LOW
     */
-    func setValue(value: DigitalGPIOValue) {
-        writeStringToFile(value.rawValue, path: getValuePath())
+    func setValue(value: DigitalGPIOValue) -> Bool {
+        return writeStringToFile(value.rawValue, path: getValuePath())
     }
     
     /**

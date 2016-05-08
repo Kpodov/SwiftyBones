@@ -1,14 +1,17 @@
 ![SwiftyBones](https://github.com/hoffmanjon/SwiftyBones/raw/master/images/logo.png)
 
-A Swift library for interacting with the GPIO, PWM and Analog pins on the BeagleBone Black.  See the first robot programmed entirely in Swift with SwiftBones here: <a href="http://myroboticadventure.blogspot.com/2016/05/the-first-robot-programed-in-swift-with.html">http://myroboticadventure.blogspot.com/2016/05/the-first-robot-programed-in-swift-with.html</a>
+A Swift library for interacting with the GPIO, PWM and Analog pins on the BeagleBone Black.  
 
+SwiftyBones is used to program <a href="https://github.com/hoffmanjon/SwiftyBones_BuddyBot">BuddyBot</a> which is the first robot programming in the Swift programming language.
 
 ## Summary
 
 The idea for SwiftyBones came from the very good <a href="https://github.com/uraimo/SwiftyGPIO">SwiftyGPIO library.</a>  While the SwiftyGPIO library is a very good library for accessing the GPIO pins on the BeagleBone Black (and other boards like the Raspberry PI and C.H.I.P) it currently does not have the ability to access the analog or PWM pins which I need for a number of my projects.  My first thought was to add this functionality to the SwiftyGPIO library however I wanted to focus on the BeagleBone Black which I use for my projects.
  I also wanted to take a more protocol-oriented approach with value types as described in my book <a href= http://amzn.to/21osHFc>Protocol-Oriented Programming with Swift</a> therefore I decided to write the SwiftyBones library.
 
-SwiftyBones currently supports interacting with the digital GPIO and analog (AIN0 - AIN6) pins.  I have begun work to add support for the PWM pins and will hopefully have this support in soon.
+SwiftyBones currently supports interacting with the digital GPIO, PWM (PWM2B,PWM2A,PWM1A,PWM1B,PWM0B,PWM0A,PWM0) and analog (AIN0 - AIN6) pins. 
+
+SwiftyBones also has a new component library to make it easy to various components to your project.  Currently there are only six components but hopefully I will be able to add additional ones soon.  You can read about the component library in the <a href="https://github.com/hoffmanjon/SwiftyBones/wiki/SwiftyBones-Component-Library">wiki</a>
 
 ## Installation
 

@@ -1,3 +1,10 @@
+//
+//  SwiftyBonesCommons.swift
+//
+//  Created by Jon Hoffman on 5/1/16.
+//
+
+
 #if arch(arm) && os(Linux)
     import Glibc
 #else

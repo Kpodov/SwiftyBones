@@ -1,3 +1,9 @@
+//
+//  SwiftyBonesAnalog.swift
+//
+//  Created by Jon Hoffman on 5/1/16.
+//
+
 #if arch(arm) && os(Linux)
     import Glibc
 #else
@@ -56,7 +62,7 @@ struct SBAnalog: GPIO {
     /**
      Failable initiator which will fail if either the header or pin number is invalid
      - Parameter header:  This is the header which will be either .P8 or .P9
-     - pin:  the pin number
+     - Parameter pin:  the pin number
      */
     init?(header: BBExpansionHeader, pin: Int) {
         for (key, expansionPin) in AnalogPins where expansionPin.header == header && expansionPin.pin == pin {
@@ -102,9 +108,9 @@ struct SBAnalog: GPIO {
      Gets the present value from the pin
      - Returns:  returns the value for the pin
     */
-    func getValue() -> Double? {
-        if let value = readStringFromFile(getValuePath()), doubleValue = Double(value) {
-            return doubleValue
+    func getValue() -> Int? {
+        if let value = readStringFromFile(getValuePath()), intValue = Int(value) {
+            return intValue
         }
         return nil
     }
