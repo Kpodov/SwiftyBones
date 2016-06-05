@@ -14,8 +14,6 @@ enum ComponentErrors: ErrorType {
 
 protocol SBComponentProtocol {
     var componentName: String {get}
-    init(gpio: GPIO?,componentName: String) throws
-    init(header: BBExpansionHeader, pin: Int, componentName: String) throws
 }
 
 protocol SBComponentInProtocol: SBComponentProtocol {
