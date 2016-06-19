@@ -5,6 +5,7 @@ A Swift library for interacting with the GPIO, PWM and Analog pins on the Beagle
 SwiftyBones is used to program <a href="https://github.com/hoffmanjon/SwiftyBones_BuddyBot">BuddyBot</a> which is the first robot programming in the Swift programming language.
 
 ## Summary
+This repository is for Swift 2.2.  There is a Swift 3 version that you can find here:  <a href=https://github.com/hoffmanjon/SwiftyBones3>https://github.com/hoffmanjon/SwiftyBones3</a>.
 
 The idea for SwiftyBones came from the very good <a href="https://github.com/uraimo/SwiftyGPIO">SwiftyGPIO library.</a>  While the SwiftyGPIO library is a very good library for accessing the GPIO pins on the BeagleBone Black (and other boards like the Raspberry PI and C.H.I.P) it currently does not have the ability to access the analog or PWM pins which I need for a number of my projects.  My first thought was to add this functionality to the SwiftyGPIO library however I really wanted to focus on the BeagleBone Black which I use for my projects therefore I decided to write the SwiftyBones library.
 
